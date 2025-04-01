@@ -1,88 +1,79 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
-namespace Task1
+class ArrayClass
 {
-    public class MyArray
+    private List<int> _elements; /// Private field to store data
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    public ArrayClass()
     {
-        private int[] array;
+        _elements = new List<int>();
+    }
 
-        public MyArray()
+    public ArrayClass(List<int> elements)
+    {
+        _elements = elements;
+    }
+
+    /// <summary>
+    /// Property to access private field
+    /// </summary>
+    public List<int> Elements
+    {
+        get { return _elements; }
+        set { _elements = value; }
+    }
+
+    /// <summary>
+    /// Method to input array elements
+    /// </summary>
+    /// <exception cref="Exception"></exception>
+    public void InputElements()
+    {
+        Console.WriteLine("Enter array elements separated by spaces:");
+        try
         {
-            array = new int[0];
+            string input = Console.ReadLine();
+            _elements = input.Split(' ').Select(int.Parse).ToList();
         }
-
-        public MyArray(int[] arr)
+        catch (FormatException)
         {
-            array = arr;
+            throw new Exception("Input error: elements must be numbers.");
         }
+    }
 
-        public int[] Array => (int[])array.Clone();
+    /// <summary>
+    /// Method to output array elements
+    /// </summary>
+    public void OutputElements()
+    {
+        Console.WriteLine("Array elements: " + string.Join(" ", _elements));
+    }
 
-        public void InputFromKeyboard()
+    /// <summary>
+    /// Method to calculate the special value (negative numbers at odd indices after the first positive)
+    /// </summary>
+    /// <returns></returns>
+    public int CalculateSpecialValue()
+    {
+        bool foundFirstPositive = false;
+        int count = 0;
+
+        for (int i = 0; i < _elements.Count; i++)
         {
-            Console.WriteLine("Enter elements separated by spaces:");
-            string input = Console.ReadLine() ?? throw new ArgumentException("Input cannot be null.");
-            if (string.IsNullOrWhiteSpace(input)) throw new ArgumentException("Input cannot be empty.");
-
-            string[] parts = input.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            array = new int[parts.Length];
-            for (int i = 0; i < parts.Length; i++)
+            if (_elements[i] > 0)
             {
-                if (!int.TryParse(parts[i], out int num))
-                    throw new FormatException($"Invalid element: {parts[i]}");
-                array[i] = num;
+                foundFirstPositive = true;
+            }
+            else if (foundFirstPositive && i % 2 != 0 && _elements[i] < 0)
+            {
+                count++;
             }
         }
-
-        public void Print()
-        {
-            Console.WriteLine(string.Join(" ", array));
-        }
-
-        public int FindMinIndex()
-        {
-            if (array.Length == 0) throw new InvalidOperationException("Array is empty.");
-            return System.Array.IndexOf(array, array.Min());
-        }
-
-        public int FindMaxIndex()
-        {
-            if (array.Length == 0) throw new InvalidOperationException("Array is empty.");
-            return System.Array.IndexOf(array, array.Max());
-        }
-
-        public MyArray FormArrayC(MyArray arrayB, int givenIndex)
-        {
-            int leftMinB = arrayB.FindMinIndex();
-            int[] partB = arrayB.Array[(leftMinB + 1)..];
-
-            int rightMinA = this.FindMinIndex();
-            if (givenIndex < 0 || givenIndex >= this.Array.Length)
-                throw new IndexOutOfRangeException("Given index is out of range for array A.");
-
-            int start = Math.Min(rightMinA, givenIndex) + 1;
-            int end = Math.Max(rightMinA, givenIndex) - 1;
-            int[] partA = start <= end ? this.Array[start..(end + 1)] : new int[0];
-
-            return new MyArray(partB.Concat(partA).ToArray());
-        }
-
-        public int CountNegativeOnOddPositionsAfterFirstPositive()
-        {
-            int firstPositiveIndex = System.Array.IndexOf(array, array.FirstOrDefault(x => x > 0));
-            if (firstPositiveIndex == -1)
-                throw new InvalidOperationException("No positive numbers in the array.");
-
-            int count = 0;
-            for (int i = firstPositiveIndex + 1; i < array.Length; i++)
-            {
-                if (i % 2 != 0 && array[i] < 0)
-                {
-                    count++;
-                }
-            }
-            return count;
-        }
+        return count;
     }
 }
