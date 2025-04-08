@@ -1,14 +1,11 @@
-﻿class Program
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Program
 {
-    /// <summary>
-    /// Method to calculate f
-    /// </summary>
-    /// <param name="a"></param>
-    /// <param name="b"></param>
-    /// <param name="c"></param>
-    /// <returns></returns>
-    /// <exception cref="DivideByZeroException"></exception>
-    static double CalculateF(int a, int b, int c)
+    // Method to calculate f
+    private static double CalculateF(int a, int b, int c)
     {
         double numerator = 2 * Math.Sin(a) + 3 * b * Math.Pow(Math.Cos(c), 3);
         double denominator = a + b;
@@ -23,20 +20,17 @@
     {
         try
         {
-            /// Input arrays A and B
-            ArrayClass A = new ArrayClass();
+            // Input arrays A and B
             Console.WriteLine("Enter array A:");
-            A.InputElements();
+            ArrayClass A = new ArrayClass(UserInteraction.InputElements());
 
-            ArrayClass B = new ArrayClass();
             Console.WriteLine("Enter array B:");
-            B.InputElements();
+            ArrayClass B = new ArrayClass(UserInteraction.InputElements());
 
-            /// Input specified index
-            Console.WriteLine("Enter the specified index for array A:");
-            int specifiedIndex = int.Parse(Console.ReadLine());
+            // Input specified index
+            int specifiedIndex = UserInteraction.InputIndex();
 
-            /// Find leftmost and rightmost minimums and form array C
+            // Find leftmost and rightmost minimums and form array C
             int leftmostMinIndexB = B.Elements.IndexOf(B.Elements.Min());
             int rightmostMinIndexA = A.Elements.Count - 1 - A.Elements.LastIndexOf(A.Elements.Min());
             List<int> CElements = B.Elements.Skip(leftmostMinIndexB + 1).ToList();
@@ -44,25 +38,25 @@
 
             ArrayClass C = new ArrayClass(CElements);
 
-            /// Calculate a, b, c
+            // Calculate a, b, c
             int a = A.CalculateSpecialValue();
             int b = B.CalculateSpecialValue();
             int c = C.CalculateSpecialValue();
 
-            /// Calculate f
+            // Calculate f
             double f = CalculateF(a, b, c);
 
-            /// Output results
+            // Output results
             Console.WriteLine("Array A:");
-            A.OutputElements();
+            UserInteraction.OutputElements(A.Elements);
             Console.WriteLine($"a = {a}");
 
             Console.WriteLine("Array B:");
-            B.OutputElements();
+            UserInteraction.OutputElements(B.Elements);
             Console.WriteLine($"b = {b}");
 
             Console.WriteLine("Array C:");
-            C.OutputElements();
+            UserInteraction.OutputElements(C.Elements);
             Console.WriteLine($"c = {c}");
 
             Console.WriteLine($"Value of function f: {f}");
@@ -73,3 +67,7 @@
         }
     }
 }
+// Numbers to check
+//Massive A -5 - 3 8 - 1 6 - 7 10 - 2
+//Massive B 3 -5 0 -2 7 -4 9 -6
+// Index for A 5
