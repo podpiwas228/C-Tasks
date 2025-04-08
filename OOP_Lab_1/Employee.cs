@@ -29,13 +29,10 @@
 
         public int CountSalaryBelowThreshold(double threshold)
         {
-            int count = 0;
-            foreach (var salary in _salaries)
-                if (salary < threshold) count++;
-            return count;
+            return _salaries.Count(salary => salary < threshold);
         }
 
         public string GetSalariesString()
-            => string.Join(", ", _salaries.Select(s => s.ToString("F2")));
+            => string.Join(", ", _salaries.Select(salary => salary.ToString("F2")));
     }
 }
