@@ -1,6 +1,10 @@
 ﻿class Program
 {
-     static public void Main(string[] args)
+    /// <summary>
+    /// Main code, which demonsrtates work class
+    /// </summary>
+    /// <param name="args"></param>
+    static public void Main(string[] args)
     {
         SportGame football = new FootballGame();
         Console.WriteLine($"{football.PlayGame()}");
