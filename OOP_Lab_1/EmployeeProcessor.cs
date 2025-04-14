@@ -6,14 +6,6 @@ public class EmployeeProcessor
     {
         return employees.OrderBy(employee => employee.LastName).ToList();
     }
-
-    public  void PrintEmployeeDetails(List<Employee> employees)
-    {
-        Console.WriteLine("\nList of employees:");
-        foreach (var employee in employees)
-            Console.WriteLine($"{employee.LastName,-15} | {employee.Department,-10} | Salaries: {employee.GetSalariesString()}");
-    }
-
     public void PrintDepartmentAverages(List<Employee> employees)
     {
         Console.WriteLine("\nAverage salary by department:");

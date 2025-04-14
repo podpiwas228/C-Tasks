@@ -51,4 +51,10 @@ public class UserInteraction
 
         return new Employee(lastName, department, salaries);
     }
+    public static void PrintEmployeeDetails(List<Employee> employees)
+    {
+        Console.WriteLine("\nList of employees:");
+        foreach (var employee in employees)
+            Console.WriteLine($"{employee.LastName,-15} | {employee.Department,-10} | Salaries: {employee.GetSalariesString()}");
+    }
 }

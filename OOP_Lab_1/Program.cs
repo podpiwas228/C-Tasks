@@ -14,7 +14,7 @@ class Program
 
             employees = processor.SortEmployeesByLastName(employees);
 
-            processor.PrintEmployeeDetails(employees);
+            UserInteraction.PrintEmployeeDetails(employees);
             processor.PrintDepartmentAverages(employees);
 
             Console.Write("\nEnter salary threshold: ");
