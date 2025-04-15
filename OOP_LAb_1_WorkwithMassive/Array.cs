@@ -2,29 +2,31 @@
 
 class ArrayClass
 {
-    // Private field for storing array elements
     private List<int> elements;
 
-    // Constructor initializes empty array
     public ArrayClass()
     {
         elements = new List<int>();
     }
 
-    // Constructor initializes array with given elements
     public ArrayClass(List<int> elements)
     {
         this.elements = elements;
     }
 
-    // Property for accessing all array elements
+    /// <summary>
+    /// Gets or sets the full list of elements in the array.
+    /// </summary>
     public List<int> Elements
     {
-        get { return elements; }
-        set { elements = value; }
+        get => elements;
+        set => elements = value;
     }
 
-    // Method to calculate special value (negative numbers at odd indices after the first positive)
+    /// <summary>
+    /// Calculates how many negative numbers are at odd indices
+    /// after the first positive number is encountered.
+    /// </summary>
     public int CalculateSpecialValue()
     {
         bool foundFirstPositive = false;
@@ -41,6 +43,7 @@ class ArrayClass
                 count++;
             }
         }
+
         return count;
     }
 }

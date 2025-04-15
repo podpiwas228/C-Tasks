@@ -1,11 +1,60 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-class Program
+﻿class Program
 {
-    // Method to calculate f
-    private static double CalculateF(int a, int b, int c)
+    private readonly UserInteraction ui;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Program"/> class and sets up user interaction.
+    /// </summary>
+    public Program()
+    {
+        ui = new UserInteraction();
+    }
+
+    /// <summary>
+    /// Executes the main program logic: input handling, processing arrays, calculating results, and displaying output.
+    /// </summary>
+    public void Run()
+    {
+        try
+        {
+            var A = new ArrayClass(ui.GetArrayInput("A"));
+            var B = new ArrayClass(ui.GetArrayInput("B"));
+            int specifiedIndex = ui.GetIndexInput();
+
+            int leftmostMinIndexB = B.Elements.IndexOf(B.Elements.Min());
+            int rightmostMinIndexA = A.Elements.Count - 1 - A.Elements.LastIndexOf(A.Elements.Min());
+
+            List<int> CElements = B.Elements.Skip(leftmostMinIndexB + 1).ToList();
+            CElements.AddRange(A.Elements.Skip(rightmostMinIndexA).Take(specifiedIndex - rightmostMinIndexA));
+
+            var C = new ArrayClass(CElements);
+
+            int a = A.CalculateSpecialValue();
+            int b = B.CalculateSpecialValue();
+            int c = C.CalculateSpecialValue();
+
+            double f = CalculateF(a, b, c);
+
+            ui.ShowArray("A", A.Elements, a);
+            ui.ShowArray("B", B.Elements, b);
+            ui.ShowArray("C", C.Elements, c);
+            ui.ShowFunctionResult(f);
+        }
+        catch (Exception ex)
+        {
+            ui.ShowError(ex.Message);
+        }
+    }
+
+    /// <summary>
+    /// Calculates a custom function value based on inputs a, b, and c.
+    /// </summary>
+    /// <param name="a">Special value from array A.</param>
+    /// <param name="b">Special value from array B.</param>
+    /// <param name="c">Special value from array C.</param>
+    /// <returns>Result of the custom function.</returns>
+    /// <exception cref="DivideByZeroException">Thrown when the denominator (a + b) is zero.</exception>
+    private double CalculateF(int a, int b, int c)
     {
         double numerator = 2 * Math.Sin(a) + 3 * b * Math.Pow(Math.Cos(c), 3);
         double denominator = a + b;
@@ -16,55 +65,12 @@ class Program
         return numerator / denominator;
     }
 
-    static void Main(string[] args)
+    /// <summary>
+    /// Program entry point. Instantiates and runs the application.
+    /// </summary>
+    public static void Main()
     {
-        try
-        {
-            // Input arrays A and B
-            Console.WriteLine("Enter array A:");
-            ArrayClass A = new ArrayClass(UserInteraction.InputElements());
-
-            Console.WriteLine("Enter array B:");
-            ArrayClass B = new ArrayClass(UserInteraction.InputElements());
-
-            // Input specified index
-            int specifiedIndex = UserInteraction.InputIndex();
-
-            // Find leftmost and rightmost minimums and form array C
-            int leftmostMinIndexB = B.Elements.IndexOf(B.Elements.Min());
-            int rightmostMinIndexA = A.Elements.Count - 1 - A.Elements.LastIndexOf(A.Elements.Min());
-            List<int> CElements = B.Elements.Skip(leftmostMinIndexB + 1).ToList();
-            CElements.AddRange(A.Elements.Skip(rightmostMinIndexA).Take(specifiedIndex - rightmostMinIndexA));
-
-            ArrayClass C = new ArrayClass(CElements);
-
-            // Calculate a, b, c
-            int a = A.CalculateSpecialValue();
-            int b = B.CalculateSpecialValue();
-            int c = C.CalculateSpecialValue();
-
-            // Calculate f
-            double f = CalculateF(a, b, c);
-
-            // Output results
-            Console.WriteLine("Array A:");
-            UserInteraction.OutputElements(A.Elements);
-            Console.WriteLine($"a = {a}");
-
-            Console.WriteLine("Array B:");
-            UserInteraction.OutputElements(B.Elements);
-            Console.WriteLine($"b = {b}");
-
-            Console.WriteLine("Array C:");
-            UserInteraction.OutputElements(C.Elements);
-            Console.WriteLine($"c = {c}");
-
-            Console.WriteLine($"Value of function f: {f}");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("An error occurred: " + ex.Message);
-        }
+        new Program().Run();
     }
 }
 // Numbers to check
