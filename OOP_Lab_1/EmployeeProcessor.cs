@@ -1,16 +1,17 @@
 ﻿using Task2;
 
-public class EmployeeProcessor
+public class EmployeeService
 {
-    public  List<Employee> SortEmployeesByLastName(List<Employee> employees)
+    public List<Employee> SortEmployeesByLastName(List<Employee> employees)
     {
         return employees.OrderBy(employee => employee.LastName).ToList();
     }
-    public void PrintDepartmentAverages(List<Employee> employees)
-    {
-        Console.WriteLine("\nAverage salary by department:");
-        var groups = employees.GroupBy(employee => employee.Department);
 
+    public Dictionary<string, double> CalculateDepartmentAverages(List<Employee> employees)
+    {
+        var departmentAverages = new Dictionary<string, double>();
+
+        var groups = employees.GroupBy(employee => employee.Department);
         foreach (var group in groups)
         {
             double totalSalary = 0;
@@ -25,23 +26,16 @@ public class EmployeeProcessor
                 }
             }
 
-            Console.WriteLine($"{group.Key,-15}: {totalSalary / totalCount:F2}");
+            departmentAverages[group.Key] = totalSalary / totalCount;
         }
+
+        return departmentAverages;
     }
 
-    public void FindEmployeesBelowThreshold(List<Employee> employees, double threshold)
+    public List<Employee> FindEmployeesBelowThreshold(List<Employee> employees, double threshold)
     {
-        var filteredEmployees = employees
+        return employees
             .Where(employee => employee.CountSalaryBelowThreshold(threshold) > 1)
             .ToList();
-
-        if (filteredEmployees.Count == 0)
-            Console.WriteLine("No employees with salary below threshold more than once.");
-        else
-        {
-            Console.WriteLine("Employees with salary below threshold:");
-            foreach (var employee in filteredEmployees)
-                Console.WriteLine($"{employee.LastName} ({employee.Department})");
-        }
     }
 }
