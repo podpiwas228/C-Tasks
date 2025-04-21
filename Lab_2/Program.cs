@@ -1,43 +1,34 @@
-﻿using System;
-
-/// <summary>
-/// Main program.
+﻿/// <summary>
+/// Main program execution.
 /// </summary>
 class Program
 {
     /// <summary>
     /// Entry point of the program.
     /// </summary>
-    /// <param name="args">Command-line arguments array.</param>
     static void Main(string[] args)
     {
         try
         {
-            // Create Laptop object
-            Storage laptop = new Storage("Laptop", 1200.50, 10);
+            // Create interaction instance
+            UserInteraction userInteraction = new UserInteraction();
 
             // Display product information
-            Console.WriteLine(laptop.GetProductInfo());
+            userInteraction.ShowProductInfo();
 
-            // Add quantity (5)
-            laptop.AddStock(5);
-            Console.WriteLine("After adding stock:");
-            Console.WriteLine(laptop.GetProductInfo());
+            // Add stock and update the quantity
+            userInteraction.AddStock(13);
 
             // Sell the product
-            bool isSold = laptop.Sell(8);
-            Console.WriteLine(isSold ? "Sale successful!" : "Not enough stock to sell.");
-            Console.WriteLine(laptop.GetProductInfo());
+            userInteraction.SellProduct(8);
 
-            // Update the price
-            laptop.Price = 1300.75;
-            Console.WriteLine("After changing the price:");
-            Console.WriteLine(laptop.GetProductInfo());
+            // Update the product price
+            userInteraction.UpdatePrice(1300.75);
         }
-        // Handle exceptions
         catch (Exception ex)
         {
-            Console.WriteLine($"Error: {ex.Message}");
+            // Handle unexpected errors gracefully
+            throw new Exception(ex.Message);
         }
     }
 }
