@@ -1,18 +1,22 @@
-﻿class Program
+﻿using System;
+
+class Program
 {
     /// <summary>
-    /// Main code, which demonsrtates work class
+    /// Main code, which demonstrates the work of the class
     /// </summary>
     /// <param name="args"></param>
-    static public void Main(string[] args)
+     public void Main(string[] args)
     {
+        UserInteraction ui = new UserInteraction();
+
         SportGame football = new FootballGame();
-        Console.WriteLine($"{football.PlayGame()}");
+        ui.DisplayMessage(football.PlayGame());
 
         SportGame basketball = new BasketballGame();
-        Console.WriteLine($"{basketball.PlayGame()}");
+        ui.DisplayMessage(basketball.PlayGame());
 
         SportGame tennis = new TennisGame();
-        Console.WriteLine($"{tennis.PlayGame()}");
+        ui.DisplayMessage(tennis.PlayGame());
     }
 }
