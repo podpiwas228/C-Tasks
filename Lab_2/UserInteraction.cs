@@ -22,7 +22,8 @@ class UserInteraction
     /// </summary>
     public void ShowProductInfo()
     {
-        Console.WriteLine(_storage.GetProductInfo());
+        string message = _storage.GetProductInfo();
+        Console.WriteLine(message);
     }
 
     /// <summary>
@@ -33,7 +34,8 @@ class UserInteraction
     {
         _storage.AddStock(amount);
         Console.WriteLine("After adding stock:");
-        Console.WriteLine(_storage.GetProductInfo());
+        string message = _storage.GetProductInfo();
+        Console.WriteLine(message);
     }
 
     /// <summary>
@@ -44,7 +46,8 @@ class UserInteraction
     {
         bool isSold = _storage.Sell(amount);
         Console.WriteLine(isSold ? "Sale successful!" : "Not enough stock to sell.");
-        Console.WriteLine(_storage.GetProductInfo());
+        string message = _storage.GetProductInfo();
+        Console.WriteLine(message);
     }
 
     /// <summary>
@@ -55,6 +58,7 @@ class UserInteraction
     {
         _storage.Price = newPrice;
         Console.WriteLine("After changing the price:");
-        Console.WriteLine(_storage.GetProductInfo());
+        string message = _storage.GetProductInfo();
+        Console.WriteLine(message);
     }
 }

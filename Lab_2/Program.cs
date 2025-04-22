@@ -3,6 +3,11 @@
 /// </summary>
 class Program
 {
+    private const int _addstock_value = 13;
+
+    private const int _sellproduct_value = 8;
+
+    private const double _newprice_value = 1300.75;
     /// <summary>
     /// Entry point of the program.
     /// </summary>
@@ -17,13 +22,13 @@ class Program
             userInteraction.ShowProductInfo();
 
             // Add stock and update the quantity
-            userInteraction.AddStock(13);
+            userInteraction.AddStock(_addstock_value);
 
             // Sell the product
-            userInteraction.SellProduct(8);
+            userInteraction.SellProduct(_sellproduct_value);
 
             // Update the product price
-            userInteraction.UpdatePrice(1300.75);
+            userInteraction.UpdatePrice(_newprice_value);
         }
         catch (Exception ex)
         {
