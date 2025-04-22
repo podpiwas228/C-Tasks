@@ -6,17 +6,33 @@ class Program
     /// Main code, which demonstrates the work of the class
     /// </summary>
     /// <param name="args"></param>
-     static void Main(string[] args)
+    static void Main(string[] args)
     {
-        UserInteraction ui = new UserInteraction();
+        UserInteraction ui;
+        ui = new UserInteraction();
 
-        SportGame football = new FootballGame();
-        ui.DisplayMessage(football.PlayGame());
+        SportGame football;
+        football = new FootballGame();
 
-        SportGame basketball = new BasketballGame();
-        ui.DisplayMessage(basketball.PlayGame());
+        string footballMessage;
+        footballMessage = football.PlayGame();
 
-        SportGame tennis = new TennisGame();
-        ui.DisplayMessage(tennis.PlayGame());
+        ui.DisplayMessage(footballMessage);
+
+        SportGame basketball;
+        basketball = new BasketballGame();
+
+        string basketballMessage;
+        basketballMessage = basketball.PlayGame();
+
+        ui.DisplayMessage(basketballMessage);
+
+        SportGame tennis;
+        tennis = new TennisGame();
+
+        string tennisMessage;
+        tennisMessage = tennis.PlayGame();
+
+        ui.DisplayMessage(tennisMessage);
     }
 }
