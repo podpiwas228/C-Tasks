@@ -6,7 +6,7 @@ class Program
     /// Main code, which demonstrates the work of the class
     /// </summary>
     /// <param name="args"></param>
-     public void Main(string[] args)
+     static void Main(string[] args)
     {
         UserInteraction ui = new UserInteraction();
 
