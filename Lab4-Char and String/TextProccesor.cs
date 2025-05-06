@@ -1,9 +1,30 @@
 ﻿using System;
 using System.Linq;
 
+/// <summary>
+/// Handles text processing, including filtering valid sentences and currency conversion.
+/// </summary>
 public class TextProcessor
 {
-    public static string ProcessText(string inputText, decimal exchangeRate, DateTime currentDate)
+    private SentenceProcessor _sentenceProcessor;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TextProcessor"/> class.
+    /// </summary>
+    /// <param name="sentenceProcessor">Instance of <see cref="SentenceProcessor"/> for sentence operations.</param>
+    public TextProcessor(SentenceProcessor sentenceProcessor)
+    {
+        _sentenceProcessor = sentenceProcessor;
+    }
+
+    /// <summary>
+    /// Processes the input text, filters valid sentences, and converts currency values.
+    /// </summary>
+    /// <param name="inputText">The raw text input from the user.</param>
+    /// <param name="exchangeRate">The exchange rate for currency conversion.</param>
+    /// <param name="currentDate">The current date for date validation.</param>
+    /// <returns>Processed text with converted currency values.</returns>
+    public string ProcessText(string inputText, decimal exchangeRate, DateTime currentDate)
     {
         string[] sentences = inputText.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -11,8 +32,8 @@ public class TextProcessor
         {
             try
             {
-                return SentenceProcessor.IsValidSentence(sentence)
-                       && SentenceProcessor.IsDateWithinOneMonth(sentence, currentDate);
+                return _sentenceProcessor.IsValidSentence(sentence)
+                       && _sentenceProcessor.IsDateWithinOneMonth(sentence, currentDate);
             }
             catch
             {
@@ -21,6 +42,6 @@ public class TextProcessor
         });
 
         return string.Join(". ", validSentences.Select(sentence =>
-            SentenceProcessor.ConvertCurrency(sentence, exchangeRate)));
+            _sentenceProcessor.ConvertCurrency(sentence, exchangeRate)));
     }
 }
