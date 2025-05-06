@@ -1,7 +1,7 @@
 ﻿using System;
 
 /// <summary>
-/// Handles interaction with the user via console.
+/// Handles user interaction via console input and output.
 /// </summary>
 public class UserInteraction
 {
@@ -17,19 +17,20 @@ public class UserInteraction
     }
 
     /// <summary>
-    /// Starts the user interaction and processes the input text.
+    /// Starts user interaction and processes input text.
     /// </summary>
     public void Start()
     {
         Console.WriteLine("Enter the text:");
         string inputText = Console.ReadLine();
 
-        Console.WriteLine("Enter the exchange rate (USD to BYN):");
+        Console.WriteLine("Enter the exchange rate (USD -> BYN):");
         if (!decimal.TryParse(Console.ReadLine(), out decimal exchangeRate))
         {
-            Console.WriteLine("Invalid exchange rate.");
+            Console.WriteLine("Error: Invalid exchange rate format.");
             return;
         }
+
         DateTime currentDate = DateTime.Now;
         try
         {
@@ -39,7 +40,7 @@ public class UserInteraction
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"An error occurred: {ex.Message}");
+            Console.WriteLine($"Processing error: {ex.Message}");
         }
     }
 }

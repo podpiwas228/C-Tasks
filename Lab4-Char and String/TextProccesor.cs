@@ -2,7 +2,7 @@
 using System.Linq;
 
 /// <summary>
-/// Handles text processing, including filtering valid sentences and currency conversion.
+/// Processes input text, filters valid sentences, and converts currency values.
 /// </summary>
 public class TextProcessor
 {
@@ -18,7 +18,7 @@ public class TextProcessor
     }
 
     /// <summary>
-    /// Processes the input text, filters valid sentences, and converts currency values.
+    /// Processes the text, filters valid sentences, and converts currency values.
     /// </summary>
     /// <param name="inputText">The raw text input from the user.</param>
     /// <param name="exchangeRate">The exchange rate for currency conversion.</param>
@@ -35,8 +35,9 @@ public class TextProcessor
                 return _sentenceProcessor.IsValidSentence(sentence)
                        && _sentenceProcessor.IsDateWithinOneMonth(sentence, currentDate);
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine($"Sentence processing error: {ex.Message}");
                 return false;
             }
         });

@@ -2,41 +2,41 @@
 using System.Globalization;
 
 /// <summary>
-/// Handles sentence validation, currency conversion, and date extraction.
+/// Provides functionality for validating sentences, extracting data, and converting currency.
 /// </summary>
 public class SentenceProcessor
 {
     /// <summary>
-    /// Checks if a sentence is valid (contains a date and amount).
+    /// Checks if a sentence is valid (contains a date and an amount).
     /// </summary>
     /// <param name="sentence">The sentence to validate.</param>
-    /// <returns>True if the sentence is valid, otherwise false.</returns>
+    /// <returns>True if the sentence contains a valid date and amount, otherwise false.</returns>
     public bool IsValidSentence(string sentence)
     {
         return TryParseSentence(sentence, out _, out _);
     }
 
     /// <summary>
-    /// Determines if the sentence contains a date within the last month.
+    /// Determines whether the sentence contains a date within the last month.
     /// </summary>
-    /// <param name="sentence">The sentence containing a date.</param>
-    /// <param name="currentDate">The current date for validation.</param>
+    /// <param name="sentence">The sentence containing the date.</param>
+    /// <param name="currentDate">The reference date for validation.</param>
     /// <returns>True if the date is within the last month, otherwise false.</returns>
     public bool IsDateWithinOneMonth(string sentence, DateTime currentDate)
     {
         if (TryParseSentence(sentence, out DateTime date, out _))
         {
-            return (date >= currentDate.AddMonths(-1) && date <= currentDate);
+            return date >= currentDate.AddMonths(-1) && date <= currentDate;
         }
         return false;
     }
 
     /// <summary>
-    /// Converts currency in the sentence using the provided exchange rate.
+    /// Converts the currency in the sentence using the provided exchange rate.
     /// </summary>
     /// <param name="sentence">The sentence containing the amount.</param>
     /// <param name="exchangeRate">The exchange rate for conversion.</param>
-    /// <returns>Formatted string with converted currency values.</returns>
+    /// <returns>A formatted string with the converted currency values.</returns>
     public string ConvertCurrency(string sentence, decimal exchangeRate)
     {
         if (TryParseSentence(sentence, out DateTime date, out decimal amount))
@@ -56,16 +56,27 @@ public class SentenceProcessor
     /// <returns>True if parsing was successful, otherwise false.</returns>
     private bool TryParseSentence(string sentence, out DateTime date, out decimal amount)
     {
+        var parts = sentence.Split(',', StringSplitOptions.RemoveEmptyEntries);
+
+        // Default assignment to prevent uninitialized variables
         date = default;
         amount = default;
 
-        var parts = sentence.Split(',');
-        if (parts.Length < 2) return false;
-
-        if (!DateTime.TryParse(parts[0].Trim(), out date)) return false;
-
-        if (!decimal.TryParse(parts[1].Trim(), NumberStyles.Currency, CultureInfo.InvariantCulture, out amount))
+        if (parts.Length != 2)
         {
+            Console.WriteLine($"Parsing error: Invalid sentence format - '{sentence}'");
+            return false;
+        }
+
+        if (!DateTime.TryParse(parts[0].Trim(), out date))
+        {
+            Console.WriteLine($"Date parsing error: '{parts[0].Trim()}'.");
+            return false;
+        }
+
+        if (!decimal.TryParse(parts[1].Trim(), out amount))
+        {
+            Console.WriteLine($"Amount parsing error: '{parts[1].Trim()}'.");
             return false;
         }
 
