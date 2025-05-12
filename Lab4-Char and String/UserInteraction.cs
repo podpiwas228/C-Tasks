@@ -1,24 +1,15 @@
 ﻿using System;
 
-/// <summary>
-/// Handles user interaction via console input and output.
-/// </summary>
 public class UserInteraction
 {
-    private TextProcessor _textProcessor;
+    private readonly TextProcessor _textProcessor;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="UserInteraction"/> class.
-    /// </summary>
     public UserInteraction()
     {
-        SentenceProcessor sentenceProcessor = new SentenceProcessor();
+        var sentenceProcessor = new SentenceProcessor();
         _textProcessor = new TextProcessor(sentenceProcessor);
     }
 
-    /// <summary>
-    /// Starts user interaction and processes input text.
-    /// </summary>
     public void Start()
     {
         Console.WriteLine("Enter the text:");
@@ -34,9 +25,9 @@ public class UserInteraction
         DateTime currentDate = DateTime.Now;
         try
         {
-            string processedText = _textProcessor.ProcessText(inputText, exchangeRate, currentDate);
+            string result = _textProcessor.ProcessText(inputText, exchangeRate, currentDate);
             Console.WriteLine("Result:");
-            Console.WriteLine(processedText);
+            Console.WriteLine(result);
         }
         catch (Exception ex)
         {
