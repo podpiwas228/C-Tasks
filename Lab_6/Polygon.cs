@@ -40,6 +40,8 @@ class Polygon : IComparable<Polygon>
     public int CompareTo(Polygon other)
     {
         if (other == null) return 1;
-        return GetPerimeter().CompareTo(other.GetPerimeter());
+        var firstPer = GetPerimeter();
+        var secondPer = other.GetPerimeter();
+        return firstPer.CompareTo(secondPer);
     }
 }

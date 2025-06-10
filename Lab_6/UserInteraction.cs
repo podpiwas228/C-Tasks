@@ -11,6 +11,7 @@ using System.Linq;
 /// </summary>
 class UserInteraction
 {
+    const int numberForPerimetrTriangle = 3 ;
     /// <summary>
     /// Reads shape data from a text file and creates corresponding shape objects.
     /// </summary>
@@ -69,13 +70,15 @@ class UserInteraction
     /// <param name="shapes">The list of shapes to be displayed.</param>
     public void DisplayShapes(List<Shape> shapes)
     {
-        shapes = shapes.OrderBy(s => s.CalculateSquare()).ToList();
-
+        shapes = shapes
+    .OrderBy(s => s.CalculateSquare())
+    .ToList();
         int index = 1;
         foreach (var shape in shapes)
         {
             Console.ForegroundColor = Enum.TryParse<ConsoleColor>(shape.Color, true, out var color) ? color : ConsoleColor.White;
-            Console.WriteLine($"{index} {shape.Type} {shape.CalculateSquare():F2} {shape.Color}");
+            double shapeSquare = shape.CalculateSquare();
+            Console.WriteLine($"{index} {shape.Type} {shapeSquare:F2} {shape.Color}");
             index++;
         }
         Console.ResetColor();
@@ -93,7 +96,7 @@ class UserInteraction
             if (shape is Triangle triangle && triangle.BaseLength == triangle.HeightLength)
             {
                 // Assumes that the triangle is equilateral and lies in the second quadrant
-                Console.WriteLine($"Equilateral Triangle Perimeter: {triangle.BaseLength * 3}");
+                Console.WriteLine($"Equilateral Triangle Perimeter: {triangle.BaseLength * numberForPerimetrTriangle}");
             }
         }
     }
