@@ -13,12 +13,7 @@ class Circle : Shape
     public double Radius
     {
         get => _radius;
-        set
-        {
-            if (value < 0)
-                throw new ArgumentOutOfRangeException("value must be greater than 0");
-            _radius = value;
-        }
+        private set => _radius = value;
     }
 
     /// <summary>
@@ -27,12 +22,7 @@ class Circle : Shape
     public double CenterY
     {
         get => _centerY;
-        set
-        {
-            if (value <= 0)
-                throw new ArgumentOutOfRangeException("value must be greater than 0");
-            _centerY = value;
-        }
+        private set => _centerY = value;
     }
 
     /// <summary>
@@ -41,12 +31,7 @@ class Circle : Shape
     public double CenterX
     {
         get => _centerX;
-        set
-        {
-            if (value <= 0)
-                throw new ArgumentOutOfRangeException("value must be greater than 0");
-            _centerX = value;
-        }
+        private set => _centerX = value;
     }
 
     /// <summary>
@@ -55,6 +40,13 @@ class Circle : Shape
     public Circle(double centerX, double centerY, double radius)
         : base("Circle", "Blue")
     {
+        if (centerX <= 0)
+            throw new ArgumentOutOfRangeException(nameof(centerX), "CenterX must be greater than 0.");
+        if (centerY <= 0)
+            throw new ArgumentOutOfRangeException(nameof(centerY), "CenterY must be greater than 0.");
+        if (radius < 0)
+            throw new ArgumentOutOfRangeException(nameof(radius), "Radius must be greater than or equal to 0.");
+
         CenterX = centerX;
         CenterY = centerY;
         Radius = radius;
@@ -69,6 +61,6 @@ class Circle : Shape
     /// <inheritdoc/>
     public override string ShowInformation()
     {
-        return $"{Type} ,{Color} {CalculateSquare():F2}";
+        return $"{Type}, {Color} {CalculateSquare():F2}";
     }
 }

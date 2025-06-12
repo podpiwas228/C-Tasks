@@ -12,12 +12,7 @@ class Rectangle : Shape
     public int A
     {
         get => _aLength;
-        set
-        {
-            if (value <= 0)
-                throw new ArgumentOutOfRangeException("value must be greater than 0");
-            _aLength = value;
-        }
+        private set => _aLength = value;
     }
 
     /// <summary>
@@ -26,12 +21,7 @@ class Rectangle : Shape
     public int B
     {
         get => _bLength;
-        set
-        {
-            if (value <= 0)
-                throw new ArgumentOutOfRangeException("value must be greater than 0");
-            _bLength = value;
-        }
+        private set => _bLength = value;
     }
 
     /// <summary>
@@ -39,6 +29,11 @@ class Rectangle : Shape
     /// </summary>
     public Rectangle(int a, int b) : base("Rectangle", "Gray")
     {
+        if (a <= 0)
+            throw new ArgumentOutOfRangeException(nameof(a), "Width (A) must be greater than 0.");
+        if (b <= 0)
+            throw new ArgumentOutOfRangeException(nameof(b), "Height (B) must be greater than 0.");
+
         A = a;
         B = b;
     }
@@ -47,5 +42,5 @@ class Rectangle : Shape
     public override double CalculateSquare() => A * B;
 
     /// <inheritdoc/>
-    public override string ShowInformation() => $"{Type} ,{Color} {CalculateSquare():F2}";
+    public override string ShowInformation() => $"{Type}, {Color} {CalculateSquare():F2}";
 }

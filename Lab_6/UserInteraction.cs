@@ -11,7 +11,7 @@ using System.Linq;
 /// </summary>
 class UserInteraction
 {
-    const int numberForPerimetrTriangle = 3 ;
+    const int numberForPerimetrTriangle = 3;
     /// <summary>
     /// Reads shape data from a text file and creates corresponding shape objects.
     /// </summary>

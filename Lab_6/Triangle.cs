@@ -15,12 +15,7 @@ class Triangle : Shape
     public int BaseLength
     {
         get => _baseLength;
-        set
-        {
-            if (value <= 0)
-                throw new ArgumentOutOfRangeException("value must be greater than 0");
-            _baseLength = value;
-        }
+        private set => _baseLength = value;
     }
 
     /// <summary>
@@ -29,12 +24,7 @@ class Triangle : Shape
     public int HeightLength
     {
         get => _heightLength;
-        set
-        {
-            if (value <= 0)
-                throw new ArgumentOutOfRangeException("value must be greater than 0");
-            _heightLength = value;
-        }
+        private set => _heightLength = value;
     }
 
     /// <summary>
@@ -42,6 +32,11 @@ class Triangle : Shape
     /// </summary>
     public Triangle(int baseLength, int heightLength) : base("Triangle", "Blue")
     {
+        if (baseLength <= 0)
+            throw new ArgumentOutOfRangeException(nameof(baseLength), "Base length must be greater than 0.");
+        if (heightLength <= 0)
+            throw new ArgumentOutOfRangeException(nameof(heightLength), "Height length must be greater than 0.");
+
         BaseLength = baseLength;
         HeightLength = heightLength;
     }

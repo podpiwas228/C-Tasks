@@ -12,12 +12,7 @@ abstract class Shape
     public string? Type
     {
         get => _type;
-        set
-        {
-            if (string.IsNullOrEmpty(value))
-                throw new ArgumentNullException("Name must be greater than 0");
-            _type = value;
-        }
+        protected set => _type = value;
     }
 
     /// <summary>
@@ -26,12 +21,7 @@ abstract class Shape
     public string? Color
     {
         get => _color;
-        set
-        {
-            if (string.IsNullOrEmpty(value))
-                throw new ArgumentNullException("color must be greater than null");
-            _color = value;
-        }
+        set => _color = value;
     }
 
     /// <summary>
@@ -41,8 +31,13 @@ abstract class Shape
     /// <param name="color">Shape color.</param>
     public Shape(string? type, string? color)
     {
-        Type = type;
-        Color = color;
+        if (string.IsNullOrEmpty(type))
+            throw new ArgumentNullException(nameof(type), "Type must not be null or empty.");
+        if (string.IsNullOrEmpty(color))
+            throw new ArgumentNullException(nameof(color), "Color must not be null or empty.");
+
+        _type = type;
+        _color = color;
     }
 
     /// <summary>

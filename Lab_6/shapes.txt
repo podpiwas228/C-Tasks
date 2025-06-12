@@ -1,4 +1,4 @@
 circle 3 4 2 Red
-rectangle 5 6 Gray
+rectangle 5 6 Yellow
 triangle 4 4 Blue
-triangle 3 5 Green
+triangle 3 5 Cyan
