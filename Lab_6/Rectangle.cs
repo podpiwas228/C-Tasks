@@ -3,20 +3,20 @@
 /// </summary>
 class Rectangle : Shape
 {
-    private int _a;
-    private int _b;
+    private int _aLength;
+    private int _bLength;
 
     /// <summary>
     /// Width of the rectangle.
     /// </summary>
     public int A
     {
-        get => _a;
+        get => _aLength;
         set
         {
             if (value <= 0)
                 throw new ArgumentOutOfRangeException("value must be greater than 0");
-            _a = value;
+            _aLength = value;
         }
     }
 
@@ -25,12 +25,12 @@ class Rectangle : Shape
     /// </summary>
     public int B
     {
-        get => _b;
+        get => _bLength;
         set
         {
             if (value <= 0)
                 throw new ArgumentOutOfRangeException("value must be greater than 0");
-            _b = value;
+            _bLength = value;
         }
     }
 
