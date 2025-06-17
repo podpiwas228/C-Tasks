@@ -1,32 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using Lab7.Models;
+﻿using Lab7.Models;
 
 namespace Lab7.UI
 {
+    /// <summary>
+    /// Handles console input and output operations.
+    /// </summary>
     public class ConsoleIO
     {
-        private const string SelectSportMessage = "Select a sport using ↑ ↓ keys, then press Enter:";
-        private const string NewLine = "\n";
-        private const string HeaderPrefix = "Athletes who placed ";
-        private const string SportPrefix = "Sport: ";
+        /// <summary>
+        /// Prints a message with a newline.
+        /// </summary>
+        public void PrintLine(string message) => Console.WriteLine(message);
 
-        public void PrintLine(string message)
-        {
-            Console.WriteLine(message);
-        }
+        /// <summary>
+        /// Prints a message without a newline.
+        /// </summary>
+        public void Print(string message) => Console.Write(message);
 
-        public void Print(string message)
-        {
-            Console.Write(message);
-        }
+        /// <summary>
+        /// Reads a line of input from the user.
+        /// </summary>
+        public string ReadLine() => Console.ReadLine();
 
-        public string ReadLine()
-        {
-            return Console.ReadLine();
-        }
-
+        /// <summary>
+        /// Allows the user to select a sport from a menu using arrow keys.
+        /// </summary>
+        /// <returns>The selected sport.</returns>
         public Sport SelectSportFromMenu()
         {
             var sports = Enum.GetValues(typeof(Sport));
@@ -36,8 +35,7 @@ namespace Lab7.UI
             do
             {
                 Console.Clear();
-                Console.WriteLine(SelectSportMessage);
-                Console.WriteLine();
+                Console.WriteLine("Select a sport using ↑ ↓ keys, then press Enter:\n");
 
                 for (int i = 0; i < sports.Length; i++)
                 {
@@ -58,47 +56,31 @@ namespace Lab7.UI
                 key = Console.ReadKey(true).Key;
 
                 if (key == ConsoleKey.UpArrow)
-                {
-                    if (selected == 0)
-                    {
-                        selected = sports.Length - 1;
-                    }
-                    else
-                    {
-                        selected = selected - 1;
-                    }
-                }
+                    selected = (selected == 0) ? sports.Length - 1 : selected - 1;
                 else if (key == ConsoleKey.DownArrow)
-                {
-                    selected = selected + 1;
-
-                    if (selected == sports.Length)
-                    {
-                        selected = 0;
-                    }
-                }
+                    selected = (selected + 1) % sports.Length;
 
             } while (key != ConsoleKey.Enter);
 
             return (Sport)sports.GetValue(selected);
         }
 
+        /// <summary>
+        /// Writes grouped athletes to a file, grouped by sport and filtered by place.
+        /// </summary>
+        /// <param name="filePath">The path of the output file.</param>
+        /// <param name="groupedAthletes">The grouped athletes.</param>
+        /// <param name="place">The place filter.</param>
         public void WriteGroupedToFile(string filePath, Dictionary<Sport, List<Athlete>> groupedAthletes, int place)
         {
-            var lines = new List<string>();
-
-            string header = HeaderPrefix + place + ":";
-            lines.Add(header);
+            var lines = new List<string> { $"Athletes who placed {place}:" };
 
             foreach (var group in groupedAthletes)
             {
-                string sportLine = NewLine + SportPrefix + group.Key;
-                lines.Add(sportLine);
-
+                lines.Add($"\nSport: {group.Key}");
                 foreach (var athlete in group.Value)
                 {
-                    string info = athlete.GetInfo();
-                    lines.Add(info);
+                    lines.Add(athlete.GetInfo());
                 }
             }
 

@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using Lab7.Models;
+﻿using Lab7.Models;
 
 namespace Lab7.Services
 {
+    /// <summary>
+    /// Provides functionality for reading athletes from a file.
+    /// </summary>
     public class FileService
     {
+        /// <summary>
+        /// Reads athlete data from a specified file.
+        /// </summary>
+        /// <param name="path">Path to the input file.</param>
+        /// <returns>List of athletes read from the file.</returns>
         public List<Athlete> ReadAthletes(string path)
         {
             var list = new List<Athlete>();
