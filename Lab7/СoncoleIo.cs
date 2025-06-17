@@ -36,11 +36,8 @@ namespace Lab7.UI
         {
             var sports = Enum.GetValues(typeof(Sport));
             int selected = 0;
-            ConsoleKey key;
-
-            do
-            {
-                Console.Clear();
+            ConsoleKey key;     
+            Console.Clear();
                 Console.WriteLine(_selectSports);
 
                 for (int i = 0; i < sports.Length; i++)
@@ -49,6 +46,10 @@ namespace Lab7.UI
 
                     if (i == selected)
                     {
+
+            do
+            {
+           
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine(_greater + i + _points + sportName);
                         Console.ResetColor();
