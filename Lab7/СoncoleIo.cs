@@ -10,8 +10,8 @@ namespace Lab7.UI
     {
         private const string _selectSports = "Select a sport using ↑ ↓ keys, then press Enter:\n";
         private const string _athletesPlaced = "Athletes who placed";
-        private const string _points = ":" ;
-        private const string _greater = ">";
+        private const char _points = ':' ;
+        private const char _greater = '>';
         private const string _sport = "\nSport:";
         /// <summary>
         /// Prints a message with a newline.
@@ -55,7 +55,7 @@ namespace Lab7.UI
                     }
                     else
                     {
-                        Console.WriteLine("  " + i + _points + sportName);
+                        Console.WriteLine(  i + _points + sportName);
                     }
                 }
 

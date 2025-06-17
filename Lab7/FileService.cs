@@ -7,6 +7,7 @@ namespace Lab7.Services
     /// </summary>
     public class FileService
     {
+        private const char _comma = ',';
         /// <summary>
         /// Reads athlete data from a specified file.
         /// </summary>
@@ -18,7 +19,7 @@ namespace Lab7.Services
 
             foreach (var line in File.ReadLines(path))
             {
-                var parts = line.Split(',');
+                var parts = line.Split(_comma);
                 if (parts.Length != 4) continue;
 
                 var athlete = new Athlete
