@@ -1,0 +1,14 @@
+Athletes who placed 1:
+
+Sport: Athletics
+Smith (Athletics), Birth year: 1990, Place: 1, Age: 35
+Davis (Athletics), Birth year: 1990, Place: 1, Age: 35
+
+Sport: Swimming
+Williams (Swimming), Birth year: 1995, Place: 1, Age: 30
+
+Sport: Acrobatics
+Jones (Acrobatics), Birth year: 1985, Place: 1, Age: 40
+
+Sport: Boxing
+Wilson (Boxing), Birth year: 1991, Place: 1, Age: 34

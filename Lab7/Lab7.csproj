@@ -11,8 +11,8 @@
     <None Update="athletes.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="winners.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Update="winner.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
