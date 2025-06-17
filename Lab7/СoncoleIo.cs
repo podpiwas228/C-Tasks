@@ -1,4 +1,5 @@
 ﻿using Lab7.Models;
+using System.Dynamic;
 
 namespace Lab7.UI
 {
@@ -7,6 +8,11 @@ namespace Lab7.UI
     /// </summary>
     public class ConsoleIO
     {
+        private const string _selectSports = "Select a sport using ↑ ↓ keys, then press Enter:\n";
+        private const string _athletesPlaced = "Athletes who placed";
+        private const string _points = ":" ;
+        private const string _greater = ">";
+        private const string _sport = "\nSport:";
         /// <summary>
         /// Prints a message with a newline.
         /// </summary>
@@ -35,7 +41,7 @@ namespace Lab7.UI
             do
             {
                 Console.Clear();
-                Console.WriteLine("Select a sport using ↑ ↓ keys, then press Enter:\n");
+                Console.WriteLine(_selectSports);
 
                 for (int i = 0; i < sports.Length; i++)
                 {
@@ -44,12 +50,12 @@ namespace Lab7.UI
                     if (i == selected)
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("> " + i + ": " + sportName);
+                        Console.WriteLine(_greater + i + _points + sportName);
                         Console.ResetColor();
                     }
                     else
                     {
-                        Console.WriteLine("  " + i + ": " + sportName);
+                        Console.WriteLine("  " + i + _points + sportName);
                     }
                 }
 
@@ -73,11 +79,11 @@ namespace Lab7.UI
         /// <param name="place">The place filter.</param>
         public void WriteGroupedToFile(string filePath, Dictionary<Sport, List<Athlete>> groupedAthletes, int place)
         {
-            var lines = new List<string> { $"Athletes who placed {place}:" };
+            var lines = new List<string> { $"{_athletesPlaced} {place}:" };
 
             foreach (var group in groupedAthletes)
             {
-                lines.Add($"\nSport: {group.Key}");
+                lines.Add(_sport+ group.Key);
                 foreach (var athlete in group.Value)
                 {
                     lines.Add(athlete.GetInfo());
