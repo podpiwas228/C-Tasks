@@ -23,7 +23,8 @@ namespace Lab7
             AthleteService athleteService = new AthleteService();
 
             string inputPath = "athletes.txt";
-            string outputPath = @"C:\Users\vanya\OneDrive\Documents\C-Tasks#\Lab7\winner.txt";
+            string outputPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "winner.txt");
+
 
 
             if (!File.Exists(inputPath))
