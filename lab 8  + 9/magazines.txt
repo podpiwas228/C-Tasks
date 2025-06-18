@@ -1,0 +1,3 @@
+﻿Crocodile;48000
+Gardener;50000
+Murzilka;12000

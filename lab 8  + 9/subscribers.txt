@@ -1,0 +1,2 @@
+﻿Ivanov;Ul.Sovetskaya, d.25, apt.67;Crocodile;Gardener
+Petrov;Ul.Pobedy, d.12, apt.5;Murzilka
