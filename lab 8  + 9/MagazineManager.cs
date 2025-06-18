@@ -7,6 +7,8 @@ using System.IO;
 /// </summary>
 public class MagazineManager
 {
+    private const int MagazinePartsCount = 2;
+    private const char DataSeparator = ';';
     /// <summary>
     /// Gets the list of magazines.
     /// </summary>
@@ -30,9 +32,9 @@ public class MagazineManager
 
         foreach (string line in lines)
         {
-            string[] parts = line.Split(';');
+            string[] parts = line.Split(DataSeparator);
 
-            if (parts.Length == 2)
+            if (parts.Length == MagazinePartsCount)
             {
                 string title = parts[0];
                 if (decimal.TryParse(parts[1], out decimal cost))

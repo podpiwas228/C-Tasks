@@ -20,6 +20,8 @@ public class Subscriber
     private readonly List<string> _magazineTitles;
     private readonly List<decimal> _magazineCosts;
 
+    private const decimal InitialSubscriptionCost = 0m;
+    private const string ExcludedAddressPrefix = "Ul.Sovetskaya";
     /// <summary>
     /// Initializes a new instance of the <see cref="Subscriber"/> class.
     /// </summary>
@@ -34,7 +36,7 @@ public class Subscriber
         _magazineCosts = new List<decimal>();
         foreach (var _ in _magazineTitles)
         {
-            _magazineCosts.Add(0m);
+            _magazineCosts.Add(InitialSubscriptionCost);
         }
     }
 
@@ -75,7 +77,7 @@ public class Subscriber
         int index = _magazineTitles.IndexOf(title);
         if (index >= 0)
         {
-            bool isExcluded = Address.StartsWith("Ul.Sovetskaya");
+            bool isExcluded = Address.StartsWith(ExcludedAddressPrefix);
             if (!isExcluded)
             {
                 _magazineCosts[index] = newCost;

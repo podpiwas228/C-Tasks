@@ -8,6 +8,14 @@ using System.Linq;
 /// </summary>
 public class SubscriberManager
 {
+    private const int MinimumSubscriberParts = 3;
+    private const int MultipleSubscriptionThreshold = 1;
+    private const char DataSeparator = ';';
+    private const string MainMenu = "No.\tLast Name\tAddress\tMagazines\tTotal Cost";
+    private const string Subsriberswith1Magazine = "\nSubscribers with more than one magazine:";
+    private const string SubsCost = $"\nSubscribers with total cost below :";
+    private const string SubsWithHouseNumber = $"\nSubscribers with house number " ;
+
     /// <summary>
     /// Gets the list of subscribers.
     /// </summary>
@@ -32,9 +40,9 @@ public class SubscriberManager
 
         foreach (string line in lines)
         {
-            string[] parts = line.Split(';');
+            string[] parts = line.Split(DataSeparator);
 
-            if (parts.Length >= 3)
+            if (parts.Length >= MinimumSubscriberParts)
             {
                 string name = parts[0];
                 string address = parts[1];
@@ -68,7 +76,7 @@ public class SubscriberManager
     {
         List<Subscriber> sorted = Subscribers.OrderByDescending(s => s.TotalCost)
             .ToList();
-        ui.Print("No.\tLast Name\tAddress\tMagazines\tTotal Cost");
+        ui.Print(MainMenu);
         for (int i = 0; i < sorted.Count; i++)
         {
             sorted[i].PrintInfo(i + 1, ui);
@@ -81,11 +89,11 @@ public class SubscriberManager
     /// <param name="ui">Console UI to output data.</param>
     public void PrintMultipleSubscriptions(ConsoleUI ui)
     {
-        ui.Print("\nSubscribers with more than one magazine:");
+        ui.Print(Subsriberswith1Magazine);
 
         var result = Subscribers.Where(s => 
         s.GetMagazinesString()
-        .Split(',').Length > 1)
+        .Split(',').Length > MultipleSubscriptionThreshold)
             .ToList();
 
         for (int i = 0; i < result.Count; i++)
@@ -101,7 +109,7 @@ public class SubscriberManager
     /// <param name="ui">Console UI to output data.</param>
     public void PrintByMaxCost(decimal maxCost, ConsoleUI ui)
     {
-        ui.Print($"\nSubscribers with total cost below {maxCost}:");
+        ui.Print(SubsCost +  maxCost);
 
         var result = Subscribers.Where(s => s.TotalCost < maxCost)
             .ToList();
@@ -119,7 +127,7 @@ public class SubscriberManager
     /// <param name="ui">Console UI to output data.</param>
     public void PrintByHouseNumber(string houseNumber, ConsoleUI ui)
     {
-        ui.Print($"\nSubscribers with house number '{houseNumber}':");
+        ui.Print(SubsWithHouseNumber  + houseNumber );
 
         var result = Subscribers.Where(s => s.Address
         .Contains($"d.{houseNumber}"))
